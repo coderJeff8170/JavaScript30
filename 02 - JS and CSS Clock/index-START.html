@@ -62,23 +62,38 @@
       background: black;
       position: absolute;
       top: 50%;
-      transform-origin: 100%;
-      transform: rotate(90deg);
-      transition: all 0.5s;
+      transform-origin: 100%; /* place pivot at far end of div (middle of clock) */
+      transform: rotate(90deg); /* since divs are block and horizontal, start them offset 90 deg like clock hands */
+      transition: all 0.5s; /* make each 'tick' look smoother */
     }
 
   </style>
 
   <script>
     const secondHand = document.querySelector('.second-hand');
+    const hourHand = document.querySelector('.hour-hand');
+    const minHand = document.querySelector('.min-hand');
 
     function setDate () {
       const now = new Date();
       const seconds = now.getSeconds();
-      //remember, 1 second will occupy 6 degrees because 360/60 = 6
+      const minutes = now.getMinutes();
+      const hours = now.getHours();
+      //apply seconds; remember, 1 second will occupy 6 degrees because 360/60 = 6
       const secondsDegrees = ((seconds/60)*360) + 90;
       secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
-      console.log(seconds);
+      //apply minutes;
+      const minutesDegrees = ((minutes/60)*360) + 90;
+      minHand.style.transform = `rotate(${minutesDegrees}deg)`;
+      //apply hours;
+      //const hoursDegrees = ((hours/12)*360) + 90;
+      //const hoursSubDegrees =  minutes/2;
+      const hoursDegrees = ((hours/12)*360) + (minutes/2) + 90;
+      hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
+      //console.log(hoursDegrees);
+      //console.log(seconds);
+      //console.log(minutes);
+      //console.log(hours);
     }
 
     setInterval(setDate, 1000);
