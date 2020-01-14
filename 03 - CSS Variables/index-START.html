@@ -21,6 +21,22 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+    /* first, we declare the variables on the root */
+    :root {
+      --spacing: 10px;
+      --blur: 10px;
+      --base: rebeccapurple;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -45,6 +61,28 @@
   </style>
 
   <script>
+    const inputs = document.querySelectorAll(".controls input");
+
+    function handleUpdate() {
+      //this is a great way to explore how colors will look together on the fly as you design a webpage!
+
+      //console.log(this.value); <- logs the value of each range upon which the function has been called by the e.listener
+      //console.log(this.dataset); <- logs the data- attributes of each range upon which the function has been called by the e.listener
+
+      //the importance of thisvv cannot be understated. Basically, you can call any data attribute on a node using a variable, but you must make sure that if the node doesn't have a dataset attr. matching the var. when it's called, you must give it something or you'll get an undefined...
+      const suffix = this.dataset.sizing || "";
+      //console.log(suffix);
+      
+      //console.log(this.name); <- this is going to come in real handy! notice that wes has a name property for each input that corresponds with the css variables declared. watch this...
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+      //^^ the dot chain proves that you have to be familiar with what is possible, and the only way that happens is exposure! String template literals must only be used for individual arguments that need them...
+      //adding the suffix variable on the end will ensure that the property values that require a suffix will get them.
+    }
+    //vv event listeners for the inputs using any change in range or any mouse movement.
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+
+
   </script>
 
 </body>
