@@ -2,15 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Array Cardio 💪</title>
+  <title>Array Cardio 💪 </title>
 </head>
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
   <script>
     // Get your shorts on - this is an array workout!
-    // ## Array Cardio Day 1
+    // ## Array Cardio Day 1 
 
     // Some data we can work with
+
+    const my2dArray = [
+      [14, 15, 14, 65, 38],
+      [16, 75, 34, 65, 58],
+      [98, 255, 47, 87, 72],
+    ];
+
+    const my3dArray = [
+      [14, [16, 75, 34, 65, 58], 14, [16, 75, 34, 65, 58], 38],
+      [16, 75, [16, 75, 34, 65, 58], 65, [16, 75, 34, 65, 58]],
+      [98, 255, [16, 75, 34, 65, 58], 87, 72],
+    ];
 
     const inventors = [
       { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
@@ -31,6 +43,17 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const fifteenHundos = inventors.filter(function(inventor) {
+      if (inventor.year >= 1500 && inventor.year <= 1600) {
+        return true;
+      }
+    });
+
+    console.table(fifteenHundos);
+    console.table(my2dArray);
+    console.table(my3dArray);
+    //here it is interesting that I'm going back over dimensional arrays in C++ which can be thought of as primitive tables with rows and columns - so look at this neat trick above^^ You can put information in a neat table in console if it's an array of objects. Wonder if you can do it with an (2d)array of arrays? What about a 3d Array? Very interesting!
+
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
