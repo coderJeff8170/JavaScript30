@@ -105,7 +105,12 @@
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
 
-    const dataReduced = data.reduce((object, amt) => );
+    const dataReduced = data.reduce((acc, val) => {
+      acc[val] = acc[val] === undefined ? 1 : acc[val]+=1
+      return acc;
+    }, {});
+    
+    console.log(dataReduced);
 
   </script>
 </body>
