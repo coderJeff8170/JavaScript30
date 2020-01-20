@@ -29,28 +29,39 @@ const my2dArray = [
 
   // Array.prototype.filter()
   // 1. Filter the list of inventors for those who were born in the 1500's
-  const fifteenHundos = inventors.filter(function(inventor) {
-    if (inventor.year >= 1500 && inventor.year <= 1600) {
-      return true;
-    }
-  });
-
-  console.table(fifteenHundos);
-  console.table(my2dArray);
-  console.table(my3dArray);
+const fifteenHundos = inventors.filter(inventor => inventor.year>1500 && inventor.year<=1599);
+console.log(fifteenHundos);
   //here it is interesting that I'm going back over dimensional arrays in C++ which can be thought of as primitive tables with rows and columns - so look at this neat trick above^^ You can put information in a neat table in console if it's an array of objects. Wonder if you can do it with an (2d)array of arrays? What about a 3d Array? Very interesting!
 
 
   // Array.prototype.map()
   // 2. Give us an array of the inventors' first and last names
+  const invFirstLastName = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+
+  console.log(invFirstLastName);
 
   // Array.prototype.sort()
   // 3. Sort the inventors by birthdate, oldest to youngest
+  invChrono = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
+  //dot notation!
+
+  console.log(invChrono);
 
   // Array.prototype.reduce()
   // 4. How many years did all the inventors live all together?
+  // rem: reduce is reduce((accfunction){}, startingvalue);
+
+  const invTotalYears = inventors.reduce((total, inventor) => {
+    return total += (inventor.passed - inventor.year);
+  }, 0); 
+
+  console.log(invTotalYears);
 
   // 5. Sort the inventors by years lived
+
+  const yearsLived = inventors.sort((a, b) => (a.passed - a.year) > (b.passed - b.year) ? 1 : -1);
+
+  console.log(yearsLived);
 
   // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
   // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
