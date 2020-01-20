@@ -49,7 +49,7 @@
     //   }
     // }); <- make this an arrow function, buddy!
 
-    const fifteenHundos = inventors.filter(inventor => (inventor.year >= 1500 && inventor.year <= 1600));//works great!
+    const fifteenHundos = inventors.filter(inventor => (inventor.year >= 1500 && inventor.year <= 1600));//works great! 
 
     console.table(fifteenHundos);
     console.table(my2dArray);
@@ -60,7 +60,8 @@
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
 
-    const fullNames = inventors.map(inventor => (`${inventor.first} ${inventor.last}`));
+    const fullNames = inventors.map(inventor => (`${inventor.first} ${inventor.last}`));//rem: it's an array of objects, that's why map works on it.
+
 
     console.log(fullNames);
 
