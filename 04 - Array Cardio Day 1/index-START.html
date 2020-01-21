@@ -95,7 +95,7 @@
     //^^ we learned here that you cannot reassign to a const!! esp bad in console!
     
     //we also learned that 'links' provides a node list, not an array, so you cannot map something that's not an array. There are two ways to turn a list that's not an array into an array. First you can use the spread operator: 
-    //const links = [...categor.querySelectorAll('a')];
+    //const links = [...category.querySelectorAll('a')];
     //OR, and more eloquent:
     //const links = Array.from(category.querySelectorAll('a'));
     //const de = links.map(link => link.textContent);
@@ -109,6 +109,10 @@
 
     console.log(alphabeta);
 
+    //his version seemed to split the thing unnecessarily each time the sort loop happened. not sure why..
+
+
+
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
@@ -119,6 +123,34 @@
     }, {});
     
     console.log(dataReduced);
+    //I looked this one up on stack overflow and I think this guy's solution is beautiful - I adapted it. Basically, theres the accumulator(key) and the value and they are dumped into an empty object. if the new accumlator value is undefined, it'll make a key and a value of 1, or else it'll add 1 to the existing key's value. 
+    // here's my rework to try to understand this - apparently, according to the debugger, the accumulator is the object, and value is what's in each iteration of reduce on the array. So, if the value isn't there, obj[value] = 1 will make it. If it is there, the value will be added to that part of the object. 
+    const dataReduced2 = data.reduce((obj, value) => {
+      if (obj[value] === undefined) {
+        obj[value] = 1;
+      } else {
+        obj[value] += 1;
+      }
+      return obj;
+    }, {});
+
+    console.log(dataReduced2);
+    //Wes' version: 
+    // he uses an anonymous function and one of his habits is to check with console.log at each stage to see if stuff is working properly. Notice also that his nomenclature is pretty on point. Our accumulator here is the object. The value is the item in each part of the array. His is pretty elegant also. he started by saying 'object of item' for obj[item] - thta seems like a pretty important concept to understand. The rest was pretty straightforward - obj[item]++ accumulates the key's value each time. If it doesn't exist, an if statement to check - if there's no obj[item](the item each iteration), it's created and it's value is set to 0. Then it's plus plussed like ever other time, and the object is returned.
+
+    const transportation = data.reduce (function (obj, item) {
+      //console.log(item); ok so works pretty well logs out each item in array
+      if (!obj[item]) {
+        obj[item] = 0;
+      }
+      obj[item]++;
+      return obj;
+    }, {});
+
+    console.log(transportation);
+
+
+
 
   </script>
 </body>

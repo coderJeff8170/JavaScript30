@@ -70,6 +70,22 @@ console.log(fifteenHundos);
   // 7. sort Exercise
   // Sort the people alphabetically by last name
 
+  const alphaBeta = people.sort((a, b) => a > b ? 1 : -1);
+
+  console.log(alphaBeta);
+
   // 8. Reduce Exercise
   // Sum up the instances of each of these
   const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+
+  const dataReduced2 = data.reduce((key, value) => {
+    if (key[value] === undefined) {
+      key[value] = 1;
+    } else {
+      key[value] += 1;
+    }
+    return key;
+
+
+  }, {});
