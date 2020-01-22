@@ -16,7 +16,37 @@
   </form>
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+//this is great! It's going to be the first time I have ever used promises for real...
+//make an empty array to put the cities in
+const cities = [];
 
+//use fetch to gather the raw data
+
+fetch(endpoint)//get raw data from the endpoint created above
+  .then(blob => blob.json())
+  .then(data => cities.push(...data));//must use the spread operator to put each portion of data into each element of the array, or else it'll all go into the first element and be nested.
+
+  // ok now we have to create a function that will match whatever is entered in the field to whatever is in the 'cities' array...
+function findPlaces(wordToMatch, cities) {
+  return cities.filter(place => {
+    const regex = new RegExp(wordToMatch, 'gi');
+    return place.city.match(regex) || place.state.match(regex);
+    });
+}
+
+function displayMatches () {
+  //console.log(this.value);
+  const matchArray = findPlaces(this.value, cities);
+  console.log(matchArray);
+}
+
+const inputText = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+
+inputText.addEventListener('change', displayMatches);
+inputText.addEventListener('keyup', displayMatches);
+
+// get your data first!
 </script>
 </body>
 </html>

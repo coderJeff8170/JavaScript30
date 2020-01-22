@@ -126,6 +126,22 @@
   <script>
     // wow, how cool. if you display: flex in the parent (direction is defaulted to row), and set the children to flex: 1;, all the remaining space will be split evenly amongst the children width wise. rem the importance of alignitems and justifycontent with flexbox!
 
+    const panels = document.querySelectorAll('.panel');
+
+    function toggleOpen (){
+      this.classList.toggle('open');
+    }
+
+    function toggleOpenActive (e){
+      //use this to figure out which properties are transitioning -> console.log(e.propertyName); once you figure out which property is transitioning:
+      if (e.propertyName.includes('flex')) {
+        this.classList.toggle('open-active');
+      }
+      //^^ if you don't do this, it'll get confused on the two different properties transitioning...
+    }
+
+    panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+    panels.forEach(panel => panel.addEventListener('transitionend', toggleOpenActive));
 
 
   </script>
