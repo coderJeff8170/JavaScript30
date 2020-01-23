@@ -37,7 +37,25 @@ function findPlaces(wordToMatch, cities) {
 function displayMatches () {
   //console.log(this.value);
   const matchArray = findPlaces(this.value, cities);
-  console.log(matchArray);
+  //now, you're going to map over each element of the matched array and you're going to return a list item containing place.city, place.state, and place.population, then you're going to add that innerHTML to suggestions.
+  const html = matchArray.map(place => {
+
+    const regex = new RegExp(this.value, 'gi');//rem global and ignore case must be in quotes
+console.log(regex);
+    const highlightMatch = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+
+
+    return `<li>
+      <span class = "place">${highlightMatch}, ${place.state}</span>
+      <span class = "population">${place.population}</span>
+    </li>`
+  }).join('');
+  //if you don't return a string by using join at the end, the list of suggestions will reder with weird spaces, because the function returns an array without .join();
+
+  suggestions.innerHTML = html;
+
+
+  //console.log(matchArray);
 }
 
 const inputText = document.querySelector('.search');
