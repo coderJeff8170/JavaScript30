@@ -34,6 +34,13 @@ function findPlaces(wordToMatch, cities) {
     });
 }
 
+function numberWithCommas (x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+
+
+
 function displayMatches () {
   //console.log(this.value);
   const matchArray = findPlaces(this.value, cities);
@@ -42,13 +49,19 @@ function displayMatches () {
 
     const regex = new RegExp(this.value, 'gi');//rem global and ignore case must be in quotes
 console.log(regex);
-    const highlightMatch = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+    const highlightCity = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
 
+    const highlightState = place.state.replace(regex, `<span class='hl'>${this.value}</span>`);
 
+//need a regex function to put a comma before every three zeros
+
+//need to put place.population as an argument to the function just mentioned
+
+//need to assign a variable to the above, and put it in the return value of the map iteration below...
     return `<li>
-      <span class = "place">${highlightMatch}, ${place.state}</span>
-      <span class = "population">${place.population}</span>
-    </li>`
+      <span class = "place">${highlightCity}, ${highlightState}</span>
+      <span class = "population">${numberWithCommas(place.population)}</span>
+    </li>`;
   }).join('');
   //if you don't return a string by using join at the end, the list of suggestions will reder with weird spaces, because the function returns an array without .join();
 
