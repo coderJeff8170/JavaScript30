@@ -9,7 +9,7 @@
   <p onClick="makeGreen()">×BREAK×DOWN×</p>
 
   <script>
-    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+    const dogs = [{ name: 'Nilla', age: 9 }, { name: 'Marley', age: 15 }, { name: 'Buddy', age: 100 }];
 
     function makeGreen() {
       const p = document.querySelector('p');
@@ -18,28 +18,72 @@
     }
 
     // Regular
+    console.log('hello');
 
     // Interpolated
+    const poop = "💩";
 
+    console.log('hello, I am a %s string', '💩');
+    //or
+    console.log(`hello, I am a ${poop} string`);//ES6 stls
     // Styled
 
+    console.log('%c I am some styled text', 'font-size: 24px; font-weight: bold; color: green; background: black;');
+    //^^ you can css the console!
+
     // warning!
+    console.warn('Oh Noes!');
 
     // Error :|
+    console.error('%s shite %s', '💩');//ignores the second one
+    console.error(`${poop} shite ${poop}`);// stls to the rescue!
 
     // Info
+    console.info('crocodiles eat 3-4 persons per year');
 
     // Testing
+    const p = document.querySelector('p');//gotta fetch them paragraphs first!
+    console.assert(p.classList.contains('ouch'), 'that is a lie!');
 
     // clearing
+    //console.clear();//lol!
 
     // Viewing DOM Elements
+    console.log(p);//returns the paragraph stored in variable p
+    console.dir(p);//shows everything about the classlist stored in variable p
 
     // Grouping together
+    dogs.forEach(dog => {
+      //console.group(`${dog.name}`);//will be automatically open
+      console.groupCollapsed(`${dog.name}`);//that's better!
+
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old,`);
+      console.log(`That's ${dog.age * 7} human years old.`);
+
+      console.groupEnd(`${dog.name}`);//this is friggin cool!
+    });
+
 
     // counting
 
+    console.count('Jeff');
+    console.count('Jeff');
+    console.count('Jeff');
+    console.count('Jeff');
+    console.count('Jeff');//pretty straighforward
+
     // timing
+    //figure out how long to get yer data!
+    console.time('fetching data');
+    fetch('https://api.github.com/users/wesbos')
+    .then(data => data.json())
+    .then(data => {
+      console.timeEnd('fetching data');
+      console.log(data);
+    });//pretty cool man promises, promises!
+    //tables
+    console.table(dogs);//notice this executes before the above promise is fulfilled!
 
   </script>
 </body>

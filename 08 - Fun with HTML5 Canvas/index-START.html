@@ -41,7 +41,7 @@
     }
 
     if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
-      direction = !direction;
+      direction = !direction; //not the same as direction != direction; lol
     }
     if (direction) {
       ctx.lineWidth++;
@@ -49,7 +49,9 @@
       ctx.lineWidth--;
     }
 
-  }
+  }ˀ
+
+  //I want to make this a simple black and white sketch program you can use on your iphone and then save the screenshot to your photo libray. Is that too much to ask? *start with the browser*
  
   canvas.addEventListener ('mousemove', draw );
   // in order to prevent lastX and lastY from becoming the start point on each mouseclick, we must reset them in the event listener and pass the event:
