@@ -70,7 +70,7 @@
       <p>Hold down your Shift key</p>
     </div>
     <div class="item">
-      <input type="checkbox">
+      <input type="checkbox" checked>
       <p>Check a lower item</p>
     </div>
     <div class="item">
@@ -96,6 +96,74 @@
   </div>
 
 <script>
+  //ok, now make them uncheck in reverse!
+
+
+  // select all checkboxes
+  //const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  const checkBoxes = document.querySelectorAll('input[type="checkbox"]');
+  const checkArray = [...checkBoxes];//may not be necessary?
+
+  let lastChecked;
+
+  function handleCheck (e) {
+
+    //check to see if shift key is down
+    //check to see if they are checking it
+    let inBetween = false;
+    if (e.shiftKey && this.checked){
+      //do stuff
+      // loop over all checkboxes first
+      checkBoxes.forEach(box => {
+        console.log(box);
+        if(box === this || box === lastChecked) {
+          inBetween = !inBetween;
+          console.log('checking in betweens!');
+        }
+        if(inBetween) {
+          box.checked = true;
+        }
+      });
+
+
+    }
+    lastChecked = this;//ah, clever!
+  }
+//each time a box is checked, 
+  checkBoxes.forEach(box => box.addEventListener('click', handleCheck));//e.shiftKey will not work with 'change'... madness!
+  
+  
+
+  // listen for hold of shift key //console.log(e.keyCode);right shift is 16
+  //window.addEventListener('keydown', function(e) {
+    //if (e.keyCode === 16) {//or left shift
+      //add event listener for next checked box??
+
+    //}
+  //});
+
+  //checkboxes.addEventListener(change, ) 
+
+  //checkArray.forEach(box => box.addEventListener('change', function(e) {
+        //log the index of the checked box
+        //console.log(indexOf(e.target));
+        //this value will be the second checkbox - find a way to id it. 
+        //}));
+
+  
+  // const checkedBoxes = checkArray.forEach(checkbox => {
+  //   console.log(checkbox.checked);
+  // });
+
+
+  // listen for check of box
+
+  // If shift key is held down for second click, 
+  // set all checkboxes between those indexes to 'checked'
+
+
+
+
 </script>
 </body>
 </html>
