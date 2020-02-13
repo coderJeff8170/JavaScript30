@@ -58,6 +58,33 @@
       };
     }
 
+
+    const sliderImages = document.querySelectorAll('.slide-in');
+
+    function checkSlide(e) {
+      //console.count(e);
+      //this produces a crapload of events, so 'debounce' above will ensure that the function only gets called like 5 times a second instead of like 50!
+      //ok, so now, we have to figure out how to call for each image, and get it to start sliding in when the bottom of the browser is level with the middle of each image;
+      sliderImages.forEach(sliderImage => {
+        //halfway through the image
+        const slideInAt = (window.scrollY + window.innerHeight) - sliderImage.height/2;
+        console.log(slideInAt);
+      //so here, we take half the image slider height, and subtract it from where the bottom of the window is(window.scrollY is the top of the window, and adding the height of the open window to it gives us the bottom) so that the image starts sliding in once it gets to the halfway point
+      //vvbottom of Image
+      const imageBottom = sliderImage.offsetTop + sliderImage.height;
+      const isHalfShown = slideInAt > sliderImage.offsetTop;
+      const isNotScrolledPast = window.scrollY < imageBottom;
+
+      if(isHalfShown && isNotScrolledPast) {
+        sliderImage.classList.add('active');//elements have a list of classes(this is not jQuery, lol)
+      }else{
+        sliderImage.classList.remove('active');
+      }
+    })
+    }
+
+    window.addEventListener('scroll', debounce(checkSlide));
+
   </script>
 
   <style>
