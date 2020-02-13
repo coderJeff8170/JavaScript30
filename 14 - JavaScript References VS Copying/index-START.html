@@ -8,14 +8,24 @@
 
   <script>
     // start with strings, numbers and booleans
+    // remember, primitives are immutable!
+    let age = 20; 
+    let age2 = age;//age 2 is assigned the value of age at the time it is still 20;
+    console.log(age, age2);
+    age = 100;
+    console.log(age, age2);
+    age2=age;
+    console.log(age, age2);
 
     // Let's say we have an array
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
 
     // and we want to make a copy of it.
-
+    const players2 = players;
+    console.log(players2);
     // You might think we can just do something like this:
-
+    players2[3] = 'jeff';
+    console.log(players);//uh oh! updates the original too, unlike with primitive varible!
     // however what happens when we update that array?
 
     // now here is the problem!
@@ -25,6 +35,14 @@
     // Why? It's because that is an array reference, not an array copy. They both point to the same array!
 
     // So, how do we fix this? We take a copy instead!
+    const players3 = players.slice();//slice returns a copied portion of an array, but without params it'll return a copy of the entire array.
+    console.log(players3);
+    const players4 = [].concat(players);
+    console.log(players4);
+    const players5=[...players];
+    console.log(players5);
+    const players6=Array.from(players);
+    console.log(`players6: ${players6}`);
 
     // one way
 
