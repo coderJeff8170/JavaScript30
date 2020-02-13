@@ -7,6 +7,25 @@
 </head>
 <body>
 <script>
+   let pressed = [];
+   const secretCode = 'jeffisawesome'
+  window.addEventListener('keyup', (e) => {
+ 
+    //console.log(e.key);
+    pressed.push(e.key);
+
+    pressed.splice(-secretCode.length-1, pressed.length - secretCode.length); 
+    //possibly the most difficult thing to undeerstand on this page, but very powerful - here, it will keep the length of the array to 13, removing the last item, every time a new character is added to 'pressed' once it reaches 13. So, it will remove index -14(the last index, and it will remove only one character)
+    if(pressed.join('').includes(secretCode)) {
+      //very cool! join the array with no spaces, and find out if it includes a string...
+      console.log('you did it!');
+      cornify_add();
+    }
+    console.log(pressed);
+  });
+
+
+
 </script>
 </body>
 </html>
