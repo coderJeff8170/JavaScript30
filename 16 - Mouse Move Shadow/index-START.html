@@ -34,7 +34,43 @@
   }
   </style>
 
+
+
 <script>
+  //grab the elements
+  const hero = document.querySelector('.hero');
+  const text = hero.querySelector('h1');
+  const walk = 100; //100px;
+
+  //functions
+  function moveShadow(e) {
+    //we need to get the width and height of the hero
+
+    const width = hero.offsetWidth;
+    const height = hero.offsetHeight;
+    // can be ES6 destructured as const {offsetWidth: width, offsetHeight: height} = hero;
+    // but I need to understand the logic first...
+    let x = e.offsetX;
+    let y = e.offsetY;//these are let, as the value will be reassigned on the fly...
+    // can be es6 destructured as let {offsetX: x, offsetY: y} = e;
+    console.log(x, y);//jolly good Jeff, that's where the mouse is
+    //console.log(width, height);
+    if (this !== e.target) {
+      x = x + e.target.offsetLeft;
+      y = y + e.target.offsetTop;
+    }
+    console.log(x, y);//works
+    const xWalk = Math.round((x / width * walk) - (walk/2));//I need to be able to think like this!
+    const yWalk = Math.round((y / height * walk) - (walk/2));
+
+    text.style.textShadow = `${xWalk * -1}px ${yWalk * -1}px 0 green`;//no commas!!!!
+  }
+
+  //event listeners
+
+  document.addEventListener('mousemove', moveShadow);
+
+
 </script>
 </body>
 </html>
