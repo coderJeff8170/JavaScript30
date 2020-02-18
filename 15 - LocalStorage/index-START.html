@@ -52,12 +52,14 @@
   //also, we need this funtion to be versatile - the first param is generic on purpose so that it can be used for any passed in list, not just the one we're working on now...
 
   function populateList (plates=[], platesList) {
-    platesList.innerHTML = plates.map((plate, i) => {
+    platesList.innerHTML = plates.map((plate, i) => {//innerHTML - the HTML must be capitalized!!
+      //innerHTML completely replaces what's already there.
       return `
       <li>
-        <label for="">${plate.text}</label>
+        <input type="checkbox" data-index="${i}" id="item${i}" ${plate.done? "checked" : ""}/>
+        <label for="item${i}">${plate.text}</label>
       </li>
-      `;
+      `;//use a ternary to determine whether the item is checked or not
     }).join('');
   }
 
