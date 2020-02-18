@@ -22,35 +22,34 @@
 
     // and we want to make a copy of it.
     const players2 = players;
-    console.log(players2);
+    console.log(`players2: ${players2}`);
     // You might think we can just do something like this:
     players2[3] = 'jeff';
-    console.log(players);//uh oh! updates the original too, unlike with primitive varible!
     // however what happens when we update that array?
-
     // now here is the problem!
-
+    console.log(`players: ${players}`);//uh oh! updates the original too, unlike with primitive varible!
     // oh no - we have edited the original array too!
-
     // Why? It's because that is an array reference, not an array copy. They both point to the same array!
 
     // So, how do we fix this? We take a copy instead!
-    const players3 = players.slice();//slice returns a copied portion of an array, but without params it'll return a copy of the entire array.
-    console.log(players3);
-    const players4 = [].concat(players);
-    console.log(players4);
-    const players5=[...players];
-    console.log(players5);
-    const players6=Array.from(players);
-    console.log(`players6: ${players6}`);
 
     // one way
-
+    const players3 = players.slice();//slice returns a copied portion of an array, but without params it'll return a copy of the entire array.
+    console.log(`players3: ${players3}`);
     // or create a new array and concat the old one in
-
+    const players4 = [].concat(players);
+    console.log(`players4: ${players4}`);
     // or use the new ES6 Spread
-
+    const players5=[...players];
+    console.log(`players5: ${players5}`);
+    // of Array.from:
+    const players6=Array.from(players);
+    console.log(`players6: ${players6}`);
     // now when we update it, the original one isn't changed
+    players6[3] = 'bob';
+    console.log(`players6: ${players6}`);
+    console.log(`players: ${players}`);
+
 
     // The same thing goes for objects, let's say we have a person object
 
@@ -61,12 +60,42 @@
     };
 
     // and think we make a copy:
+    const jeff = person;
+    jeff.number = 666;
+    console.log(person);// jeff references person, so it adds a new property to person
 
     // how do we take a copy instead?
+    const sophia = Object.assign({}, person, {name: 'Sophia', age: 13, number: 42} );
+    console.log(sophia);//how very cool.
 
     // We will hopefully soon see the object ...spread
 
+    //lets see if anythings changed since wes did his thang..
+    const jennifer = {...person};
+    jennifer.age = 30;
+    jennifer.name = 'jennifer';
+    console.log(jennifer);// how cool, they added it!!!
+    
+
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+
+    const jeffrey = {
+      name: 'Jeff',
+      age: 49,
+      social: {
+        twitter: '@jefbot',
+        facebook: 'pbj.developer'
+      }
+    };
+
+    const dev = Object.assign({}, jeffrey);// you only avoid referencing 'jeffrey' on that first level - the nested obj. 'social' will be updated on the original if you update it's info in the clone - this is known as shallow cloning.
+    console.log(dev);
+    // you can cheat a deep clone using the JSON object as follows, but if you have a lot of information it will cause performance issues.
+    const dev2 = JSON.parse(JSON.stringify(jeffrey));
+
+    dev2.social.twitter = 'I changed only in the cloned object!'
+
+    console.log(dev2);
 
   </script>
 

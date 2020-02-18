@@ -26,9 +26,43 @@
   </div>
 
 <script>
+  // we're going to add an event listener for 'submit', because submit gives us a lot of info about the form it was called on. Unfortunately, submit causes the page to reload, so we'll have to prevent default at least temporarily to see what's going on in the console
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
   const items = [];
+
+  function addItem(e) {
+    e.preventDefault();//this is to prevent the page from reloading and clearing console
+    console.log('Jennifer is awesome');
+    //we want 'text' in the item obj to be populated by what we type into the textbox:
+    const text = (this.querySelector('[name=item]')).value;//'this' narrows the query search to 'this' form... and it's what you type into the field
+    //we want to make an object each time addItem is called
+    const item = {
+      text: text,
+      done: false
+    }
+    items.push(item);//adds current object to array for storage
+    populateList(items, itemsList);
+    this.reset(); //resets form
+    console.table(items);
+  }
+
+  //now we have to create the list of items using html
+  //we need a place to store the plates and the actual list itself - the place where plates will be stored will be iterated over with the map method, so it'll need to be an empty object, just in case we forget to put something in, it won't freak, it'll just loop over nothing...
+  //also, we need this funtion to be versatile - the first param is generic on purpose so that it can be used for any passed in list, not just the one we're working on now...
+
+  function populateList (plates=[], platesList) {
+    platesList.innerHTML = plates.map((plate, i) => {
+      return `
+      <li>
+        <label for="">${plate.text}</label>
+      </li>
+      `;
+    }).join('');
+  }
+
+
+  addItems.addEventListener('submit', addItem);
 
 </script>
 
