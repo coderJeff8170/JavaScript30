@@ -29,7 +29,7 @@
   // we're going to add an event listener for 'submit', because submit gives us a lot of info about the form it was called on. Unfortunately, submit causes the page to reload, so we'll have to prevent default at least temporarily to see what's going on in the console
   const addItems = document.querySelector('.add-items');
   const itemsList = document.querySelector('.plates');
-  const items = [];
+  const items = JSON.parse(localStorage.getItem('items')) || [];
 
   function addItem(e) {
     e.preventDefault();//this is to prevent the page from reloading and clearing console
@@ -43,8 +43,9 @@
     }
     items.push(item);//adds current object to array for storage
     populateList(items, itemsList);
+    localStorage.setItem('items', JSON.stringify(items));
     this.reset(); //resets form
-    console.table(items);
+    //console.table(items);
   }
 
   //now we have to create the list of items using html
@@ -63,8 +64,33 @@
     }).join('');
   }
 
+  //function to make sure checkboxes that are checked persist too
+
+  function toggleDone (e) {
+    //console.log(e);//two items come up which we can further focus on with e.target...
+    //console.log(e.target);//this further narrows it, but we can use an if statement to get us where we need to go...
+    if(!e.target.matches('input')) return;
+    console.log(e.target);//wow! this is called 'event delegation' - when you click on something higher and check if it's the thing you want.ok, so
+    const el = e.target;
+    const index = el.dataset.index;
+    //remember, 'items' is the object where the done property is stored - we can toggle it with a bang:
+    items[index].done = !items[index].done;
+    //this is all fine and well, but then you have to add it to storage and update the list with each toggle:
+    localStorage.setItem('items', JSON.stringify(items));
+    populateList(items, itemsList);
+
+  }
+
+  //const checkBoxes = document.querySelectorAll('input');
+  //checkBoxes.forEach(input => input.addEventListener('click', () => console.log('hi')));
+  // ^^ unfortunately, since some checkboxes are added after page load, we can't listen for clicks on items that haven't been made yet. So, we'll have to listen at the ul level, .plates... (const 'itemsList')
+  // so to make this work:
+  itemsList.addEventListener('click', toggleDone);
+
 
   addItems.addEventListener('submit', addItem);
+
+  populateList(items, itemsList);//for this to work, you'll have to convert the string 'items' in local storage to an array of objects, but not here... where items is first defined...
 
 </script>
 
