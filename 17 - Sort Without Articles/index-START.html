@@ -46,8 +46,18 @@
   <ul id="bands"></ul>
 
 <script>
-const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
 
+
+const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+//if the band starts with the, and, a, or as, sort by the second word, but if it doesn't, sort by the first
+function strip (band) {
+  return band.replace(/^(a |and |the )/i, "").trim();
+}
+
+const sortedBands = bands.sort((a, b)=>strip(a)>strip(b)?1:-1);
+
+//we need a li for each band name with a string literal of the name in it
+document.querySelector("#bands").innerHTML = sortedBands.map(e=>`<li>${e}</li>`).join('');
 
 </script>
 
